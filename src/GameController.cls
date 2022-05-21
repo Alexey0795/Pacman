@@ -34,6 +34,7 @@ Private Type TGameController
     Ghosts As Collection
     GamePieces As Collection
     Player As PacmanModel
+    Score As Integer
 End Type
 
 Private this As TGameController
@@ -42,6 +43,15 @@ Private this As TGameController
 Public Sub StartGame()
     '// this is here to temporarily provide a way for me to kick off the game from code
     UIAdapter_GameStarted
+End Sub
+
+Public Sub RiseScore()
+    this.Score = this.Score + 1
+    UIAdapter.AsCommandSender.AddScore this.Score
+End Sub
+
+Public Sub EatPellet(mapTile As Tile)
+    UIAdapter.AsCommandSender.EatPellet mapTile
 End Sub
 
 Private Sub Class_Initialize()
@@ -132,6 +142,16 @@ Private Sub UIAdapter_GameStarted()
     this.Maze = MapManager.LoadMapFromFile
     MapManager.Maze = this.Maze
     UIAdapter.AsCommandSender.CreateMap this.Maze
+    
+    '//poor thing
+    Dim element As Variant
+    For Each element In this.Maze
+        Dim aTile As Tile
+        Set aTile = element
+         
+        Set aTile.parent = Me
+    Next element
+    
     
     '// set up pacman
     Set this.Player = New PacmanModel

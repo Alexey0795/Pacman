@@ -110,9 +110,10 @@ Private Sub IGamePiece_Move()
         '//Go to target tile
         this.Heading = this.CommandedHeading
         Set this.CurrentTile = this.TargetTile
-        
+        EatPellet
     ElseIf this.NextTile.IsTraversable Then
         Set this.CurrentTile = this.NextTile
+        EatPellet
     Else
         '//can't move
         Me.IsDead = True
@@ -121,6 +122,10 @@ Private Sub IGamePiece_Move()
     '//Aquire a the next desired tile and the next tile along the current path
     Set Me.TargetTile = MapManager.GetNextTile(this.CurrentTile, this.CommandedHeading)
     Set Me.NextTile = MapManager.GetNextTile(this.CurrentTile, this.Heading)
+End Sub
+
+Private Sub EatPellet()
+    this.CurrentTile.TriggerEncounterInteractions
 End Sub
 
 Private Property Get IGamePiece_Speed() As Double

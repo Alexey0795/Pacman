@@ -14,21 +14,21 @@ Option Explicit
 Implements IGhostBehavior
 
 Private Type TShadowBehavior
-    Target As PacmanModel
+    target As PacmanModel
 End Type
 
 Private this As TShadowBehavior
 
 Public Function Create(pm As PacmanModel) As IGhostBehavior
     Dim obj As New ShadowBehavior
-    Set obj.Target = pm
+    Set obj.target = pm
     Set Create = obj
 End Function
 
 Private Function IGhostBehavior_AquireTargetTile() As Tile
-    Set IGhostBehavior_AquireTargetTile = this.Target.CurrentTile
+    Set IGhostBehavior_AquireTargetTile = this.target.CurrentTile
 End Function
 
-Public Property Set Target(value As PacmanModel)
-    Set this.Target = value
+Public Property Set target(value As PacmanModel)
+    Set this.target = value
 End Property

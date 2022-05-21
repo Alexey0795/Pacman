@@ -119,25 +119,30 @@ End Function
 
 Private Function TransformToMap(inputString As String) As Tile()
     Dim rowArr As Variant
-    Dim element As Variant
-    Dim subElement As Variant
-    Dim result() As Tile
-    Dim subArr() As String
-    Dim RowCount As Integer
-    Dim ColCount As Integer
-    Dim j As Integer
-    Dim i As Integer
-    
     rowArr = Split(inputString, ";")
+    
+    Dim RowCount As Integer
     RowCount = UBound(rowArr) - LBound(rowArr) + 1
+    
+    Dim ColCount As Integer
     ColCount = UBound(Split(rowArr(LBound(rowArr)), ",")) - LBound(Split(rowArr(LBound(rowArr)), ",")) + 1
     
+    Dim result() As Tile
     ReDim result(1 To RowCount, 1 To ColCount)
     
+    Dim element As Variant
     For Each element In rowArr
+        
+        Dim j As Integer
         j = j + 1
+        
+        Dim i As Integer
         i = 0
+        
+        Dim subArr() As String
         subArr = Split(element, ",")
+        
+        Dim subElement As Variant
         For Each subElement In subArr
             i = i + 1
             Set result(j, i) = TileFactory.NewTile(CStr(subElement), i, j)

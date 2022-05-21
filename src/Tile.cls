@@ -17,6 +17,9 @@ End Type
 Public IsTraversable As Boolean
 Public Id As String
 
+Public parent As GameController
+Public hasPellet As Boolean
+
 Private mIsDecisionNodeSupressed As Boolean
 Private mAddress As Coord
 
@@ -26,10 +29,10 @@ Public Property Get IsDecisionNode() As Boolean
     '// true if there are 3 or more path options
     If mIsDecisionNodeSupressed = True Then Exit Function
     IsDecisionNode = -1 * (MapManager.GetNextTile(Me, dDown).IsTraversable + _
-                            MapManager.GetNextTile(Me, dUp).IsTraversable + _
-                            MapManager.GetNextTile(Me, dRight).IsTraversable + _
-                            MapManager.GetNextTile(Me, dLeft).IsTraversable) _
-                        >= 3
+                           MapManager.GetNextTile(Me, dUp).IsTraversable + _
+                           MapManager.GetNextTile(Me, dRight).IsTraversable + _
+                           MapManager.GetNextTile(Me, dLeft).IsTraversable) _
+        >= 3
 End Property
 Public Property Let IsDecisionNode(value As Boolean)
     mIsDecisionNodeSupressed = value
@@ -38,6 +41,7 @@ End Property
 Public Property Get x() As Integer
     x = mAddress.x
 End Property
+
 Public Property Get y() As Integer
     y = mAddress.y
 End Property
@@ -48,12 +52,18 @@ Public Sub SetAddress(xPos As Integer, yPos As Integer)
 End Sub
 
 Public Sub TriggerEncounterInteractions()
-'//This is called by PacMan whenever he enters a grid
-'//Any other GamePieces will here this event and respond accordingly
+    '//This is called by PacMan whenever he enters a grid
+    '//Any other GamePieces will here this event and respond accordingly
     RaiseEvent DispatchEncounter
+    If hasPellet Then
+        hasPellet = False
+        parent.RiseScore
+        parent.EatPellet Me
+    End If
 End Sub
 
 Private Sub Class_Terminate()
     'Debug.Print TypeName(Me) & " Id:" & Me.Id & " terminating..."
 End Sub
+
 

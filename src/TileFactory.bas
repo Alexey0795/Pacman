@@ -16,9 +16,11 @@ Public Function NewTile(tileEncoding As String, xPos As Integer, yPos As Integer
             Case TileToken.PELLET_TOKEN
             '// create a pellet
                 .Id = PELLET_TOKEN
+                .hasPellet = True
             Case TileToken.SUPER_PELLET_TOEKN
             '// create a SuperPellet
                 .Id = SUPER_PELLET_TOEKN
+                .hasPellet = True
             Case TileToken.OPEN_PATH
                 .Id = OPEN_PATH
             Case TileToken.DECISION_NODE_TOKEN
@@ -30,6 +32,7 @@ Public Function NewTile(tileEncoding As String, xPos As Integer, yPos As Integer
         End Select
         .IsTraversable = tileEncoding <> TileToken.WALL_TOKEN And tileEncoding <> TileToken.DOOR_TOKEN
         .SetAddress xPos, yPos
+        
     End With
     Set NewTile = result
 End Function

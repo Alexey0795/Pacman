@@ -33,6 +33,12 @@ End Sub
 Public Sub UpdateComponents(GamePieces As Collection)
 End Sub
 
+Public Sub AddScore(newvalue)
+End Sub
+
+Public Sub EatPellet(target As Tile)
+End Sub
+
 Private Sub Class_Initialize()
     Err.Raise 5, mModuleName, "Interface class must not be instantiated."
 End Sub

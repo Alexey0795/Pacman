@@ -42,6 +42,14 @@ Private Sub Class_Terminate()
 End Sub
 
 
+Private Sub IGameEventsHandler_AddScore(newvalue As Variant)
+    viewUI.AddScore newvalue
+End Sub
+
+Private Sub IGameEventsHandler_EatPellet(target As Tile)
+    viewUI.EatPellet target
+End Sub
+
 '//IGameEventsHandler Support
 Private Property Set IGameEventsHandler_Events(ByVal RHS As IViewEventsHandler)
     '//this isn't meant to be set from the outside for this class

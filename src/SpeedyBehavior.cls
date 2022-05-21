@@ -15,23 +15,23 @@ Option Explicit
 Implements IGhostBehavior
 
 Private Type TSpeedyBehavior
-    Target As PacmanModel
+    target As PacmanModel
 End Type
 
 Private this As TSpeedyBehavior
 
 Public Function Create(pm As PacmanModel) As IGhostBehavior
     Dim obj As New ShadowBehavior
-    Set obj.Target = pm
+    Set obj.target = pm
     Set Create = obj
 End Function
 
 '//Targets 4 tiles ahead of pacman
 Private Function IGhostBehavior_AquireTargetTile() As Tile
-    Set IGhostBehavior_AquireTargetTile = MapManager.GetNextTile(this.Target.CurrentTile, this.Target.Heading, 8)
+    Set IGhostBehavior_AquireTargetTile = MapManager.GetNextTile(this.target.CurrentTile, this.target.Heading, 8)
 End Function
 
-Public Property Set Target(value As PacmanModel)
-    Set this.Target = value
+Public Property Set target(value As PacmanModel)
+    Set this.target = value
 End Property
 
